@@ -1,28 +1,19 @@
-FROM ubuntu:20.10
+FROM jupyter/tensorflow-notebook
 
 # Set maintainer
 LABEL maintainer='scheepan <scheepan@web.de>'
 
-WORKDIR /root/jupyter-lab/
 
-RUN apt update && apt install -y curl python3-pip
-RUN pip3 install jupyterlab
-
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
-RUN apt install -y nodejs
-
-RUN npm install -g --unsafe-perm ijavascript
-RUN ijsinstall --install=global
+RUN jupyter labextension install @jupyterlab/git@^0.5.0 && \
+    npm cache clean --force && \
+    rm -rf $CONDA_DIR/share/jupyter/lab/staging
 
 COPY requirements.txt ./
 
-RUN pip3 install --upgrade pip && \
-    pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-
-# Build the lab
-RUN jupyter lab build --minimize=False
 
 # Expose port and path
 EXPOSE 8888
@@ -33,4 +24,4 @@ VOLUME /appdata
 # CMD pacman --noconfirm -S 
 
 # Run JupyterLab
-CMD cp -R -n /root/jupyter-lab/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
+CMD cp -R -n /home/jovyan/work/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
