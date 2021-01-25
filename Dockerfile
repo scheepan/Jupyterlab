@@ -1,17 +1,23 @@
-# Use archlinux:latest as parent image
-FROM node:10
+FROM ubuntu:20.10
 
 # Set maintainer
 LABEL maintainer='scheepan <scheepan@web.de>'
 
-# Update mirrors and packages. Install jupyterlab
-RUN pacman --noconfirm -Syyu python-pip
-RUN pacman --noconfirm -Syyu jupyterlab
+WORKDIR /root/jupyter-lab/
+
+RUN apt update && apt install -y curl python3-pip
+RUN pip3 install jupyterlab
+
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN apt install -y nodejs
+
+RUN npm install -g --unsafe-perm ijavascript
+RUN ijsinstall --install=global
 
 COPY requirements.txt ./
 
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --upgrade pip && \
+    pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
