@@ -1,5 +1,5 @@
 # Use archlinux:latest as parent image
-FROM archlinux:latest
+FROM node:10
 
 # Set maintainer
 LABEL maintainer='scheepan <scheepan@web.de>'
