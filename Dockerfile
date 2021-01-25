@@ -4,7 +4,7 @@ FROM jupyter/tensorflow-notebook
 LABEL maintainer='scheepan <scheepan@web.de>'
 
 
-RUN jupyter labextension install @jupyterlab/git@^0.5.0 && \
+RUN jupyter labextension install @jupyterlab/git@^0.30.0b1 && \
     npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging
 
