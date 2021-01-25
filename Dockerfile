@@ -33,4 +33,4 @@ VOLUME /appdata
 # CMD pacman --noconfirm -S 
 
 # Run JupyterLab
-CMD cp -R -n /usr/share/jupyter/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root --app-dir=/appdata/lab
+CMD cp -R -n /root/jupyter-lab/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root --app-dir=/appdata/lab
