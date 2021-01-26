@@ -24,4 +24,4 @@ VOLUME /appdata
 # CMD pacman --noconfirm -S 
 
 # Run JupyterLab
-CMD cp -R -n /home/jovyan/work/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
+CMD cp -R -n /usr/share/jupyter/* /appdata && jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
